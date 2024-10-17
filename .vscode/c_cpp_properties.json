@@ -4,6 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "C:\\msys64\\ucrt64\\include"
+                ,"${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -11,6 +12,21 @@
                 "_UNICODE"
             ],
             "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "${default}"
+        },
+        {
+            "name": "Win64",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",
             "cStandard": "c17",
             "cppStandard": "gnu++17",
             "intelliSenseMode": "${default}"
