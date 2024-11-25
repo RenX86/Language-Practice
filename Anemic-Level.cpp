@@ -1,30 +1,16 @@
 #include <iostream>
 using namespace std;
 
-int main() {
-    // Declare a variable to store the hemoglobin level
-    float hemoglobinLevel;
-    
-    // Prompt the user to enter their hemoglobin level
-    cout << "Enter your hemoglobin level (in g/dL): ";
-    cin >> hemoglobinLevel;
-    
-    // Determine the anemia condition based on the hemoglobin level
-    if (hemoglobinLevel < 8) {
-        cout << "Your hemoglobin level is " << hemoglobinLevel << " g/dL. You have severe anemia." << endl;
-    } 
-    else if (hemoglobinLevel >= 8 && hemoglobinLevel < 9.6) {
-        cout << "Your hemoglobin level is " << hemoglobinLevel << " g/dL. You have moderate anemia." << endl;
-    } 
-    else if (hemoglobinLevel >= 9.6 && hemoglobinLevel <= 13) {
-        cout << "Your hemoglobin level is " << hemoglobinLevel << " g/dL. You have mild anemia." << endl;
-    } 
-    else if (hemoglobinLevel > 13 && hemoglobinLevel <= 17) {
-        cout << "Your hemoglobin level is " << hemoglobinLevel << " g/dL. Your hemoglobin level is normal." << endl;
-    } 
-    else {
-        cout << "Your hemoglobin level is " << hemoglobinLevel << " g/dL. The level is above normal." << endl;
-    }
+int main(){
+    float hl;
 
-    return 0;
+    cout<<"Enter heamoglobin level: ";
+    cin>>hl;
+
+    if (hl <8) cout<<"Severe Anemia";
+    else if (hl >=8 && hl <9.5) cout<<"Moderate anemmia";
+    else if (hl >=9.6 && hl <13) cout<<"Mild anemia";
+    else if (hl >13 && hl <=17) cout<<"Normal level";
+    else cout<<"Enter valid input";
+return 0;
 }
