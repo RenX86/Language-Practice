@@ -11,7 +11,7 @@ int main(){
     if (diagonal>left)
     {
         if (diagonal>above) cout << diagonal <<" is the max value";
-        else cout << above << " is the max value";
+        else cout << diagonal << " is the max value";
     }
     else
     {
