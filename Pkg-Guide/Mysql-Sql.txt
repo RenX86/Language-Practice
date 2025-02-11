@@ -1,0 +1,92 @@
+**Step-by-Step Guide: Setting Up MySQL Remote Access on Red Hat Linux (LAN)**
+
+### **Step 1: Find the IP Address of PC 1 (MySQL Server)**
+1. Open a terminal on **PC 1**.
+2. Run the command:
+   ```bash
+   ip a
+   ```
+3. Note down the **IPv4 address** (e.g., `192.168.1.100`).
+
+### **Step 2: Configure MySQL to Listen on All IP Addresses**
+1. Open the MySQL configuration file:
+   ```bash
+   sudo nano /etc/my.cnf
+   ```
+2. Locate the line:
+   ```
+   bind-address = 127.0.0.1
+   ```
+3. Change it to:
+   ```
+   bind-address = 0.0.0.0
+   ```
+4. Save and exit (`Ctrl+X`, then `Y`, then `Enter`).
+5. Restart MySQL to apply changes:
+   ```bash
+   sudo systemctl restart mysqld
+   ```
+
+### **Step 3: Create a Remote MySQL User**
+1. Open MySQL on **PC 1**:
+   ```bash
+   sudo mysql -u root -p
+   ```
+2. Create a user that can connect from any PC in the LAN:
+   ```sql
+   CREATE USER 'student'@'%' IDENTIFIED BY 'yourpassword';
+   ```
+3. Grant full access to the user:
+   ```sql
+   GRANT ALL PRIVILEGES ON *.* TO 'student'@'%' WITH GRANT OPTION;
+   FLUSH PRIVILEGES;
+   ```
+4. Exit MySQL:
+   ```sql
+   EXIT;
+   ```
+
+### **Step 4: Open MySQL Port in the Firewall**
+1. Allow MySQL through the firewall:
+   ```bash
+   sudo firewall-cmd --add-service=mysql --permanent
+   sudo firewall-cmd --add-port=3306/tcp --permanent
+   sudo firewall-cmd --reload
+   ```
+2. Verify if the port is open:
+   ```bash
+   sudo firewall-cmd --list-ports
+   ```
+   - You should see `3306/tcp` listed.
+
+### **Step 5: Connect from Another PC (PC 2 or Any LAN PC)**
+1. On **PC 2**, test the network connection to **PC 1**:
+   ```bash
+   ping 192.168.1.100
+   ```
+   - If you receive replies, the network connection is fine.
+2. Try connecting to MySQL from **PC 2**:
+   ```bash
+   mysql -h 192.168.1.100 -u student -p
+   ```
+3. Enter the **password** set for the user `student`.
+4. If the connection is successful, you are now remotely connected to MySQL!
+
+### **Step 6: Verify MySQL is Listening on All IPs**
+1. On **PC 1**, check if MySQL is listening on `0.0.0.0`:
+   ```bash
+   sudo netstat -tulnp | grep 3306
+   ```
+2. If you see `0.0.0.0:3306`, MySQL is accepting connections from all IPs.
+
+### **Troubleshooting**
+- If **ping fails**, check network cables and IP settings.
+- If **MySQL connection fails**, ensure:
+  1. The user `student` exists and has the correct permissions.
+  2. The firewall allows MySQL (`3306/tcp`).
+  3. MySQL is listening on `0.0.0.0`.
+  4. Restart MySQL after changes.
+
+### **Success!**
+You can now access MySQL from any PC on the **LAN network** without internet access. 🎉
+
