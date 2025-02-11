@@ -1,0 +1,429 @@
+# Save the MySQL Command Guide to a text file
+
+mysql_guide_content = """\
+MySQL Command Guide (Basic to Advanced)
+
+1. Connecting to MySQL Server
+- Connect to MySQL as root:
+  mysql -u root -p
+
+- Connect to MySQL with a specific user:
+  mysql -u username -p
+
+- Connect to a specific database:
+  mysql -u username -p database_name
+
+2. Database Management
+- Show all databases:
+  SHOW DATABASES;
+
+- Create a new database:
+  CREATE DATABASE database_name;
+
+- Select a database to use:
+  USE database_name;
+
+- Drop (delete) a database:
+  DROP DATABASE database_name;
+
+- Show currently selected database:
+  SELECT DATABASE();
+
+3. User Management
+- Create a new user:
+  CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+
+- Show all users:
+  SELECT user, host FROM mysql.user;
+
+- Grant privileges to a user:
+  GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'host';
+
+- Revoke privileges from a user:
+  REVOKE privilege_name ON database_name.* FROM 'username'@'host';
+
+- Change user password:
+  ALTER USER 'username'@'host' IDENTIFIED BY 'new_password';
+
+- Delete a user:
+  DROP USER 'username'@'host';
+
+- Apply changes:
+  FLUSH PRIVILEGES;
+
+4. Table Management
+- Show all tables in the selected database:
+  SHOW TABLES;
+
+- Create a new table:
+  CREATE TABLE table_name (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    column1_name DATATYPE,
+    column2_name DATATYPE
+  );
+
+- Describe table structure:
+  DESC table_name;
+
+- Rename a table:
+  RENAME TABLE old_table_name TO new_table_name;
+
+- Drop (delete) a table:
+  DROP TABLE table_name;
+
+- Truncate (empty) a table:
+  TRUNCATE TABLE table_name;
+
+5. Data Manipulation (CRUD)
+- Insert a new row:
+  INSERT INTO table_name (column1, column2) VALUES ('value1', 'value2');
+
+- Insert multiple rows:
+  INSERT INTO table_name (column1, column2) VALUES ('value1', 'value2'), ('value3', 'value4');
+
+- Select all rows:
+  SELECT * FROM table_name;
+
+- Select specific columns:
+  SELECT column1, column2 FROM table_name;
+
+- Select with a condition:
+  SELECT * FROM table_name WHERE column1 = 'value';
+
+- Update records:
+  UPDATE table_name SET column1 = 'new_value' WHERE column2 = 'condition_value';
+
+- Delete records:
+  DELETE FROM table_name WHERE column1 = 'value';
+
+6. Advanced Queries
+- Count rows:
+  SELECT COUNT(*) FROM table_name;
+
+- Sort results (ascending/descending):
+  SELECT * FROM table_name ORDER BY column1 ASC;
+  SELECT * FROM table_name ORDER BY column1 DESC;
+
+- Limit results:
+  SELECT * FROM table_name LIMIT 10;
+
+- Group by a column:
+  SELECT column1, COUNT(*) FROM table_name GROUP BY column1;
+
+- Join two tables (INNER JOIN):
+  SELECT a.column1, b.column2 FROM table1 a INNER JOIN table2 b ON a.id = b.id;
+
+- Left Join:
+  SELECT a.column1, b.column2 FROM table1 a LEFT JOIN table2 b ON a.id = b.id;
+
+- Right Join:
+  SELECT a.column1, b.column2 FROM table1 a RIGHT JOIN table2 b ON a.id = b.id;
+
+7. Indexing and Optimization
+- Create an index:
+  CREATE INDEX index_name ON table_name (column_name);
+
+- Show indexes:
+  SHOW INDEX FROM table_name;
+
+- Delete an index:
+  DROP INDEX index_name ON table_name;
+
+8. Backup and Restore
+- Backup a database:
+  mysqldump -u username -p database_name > backup.sql
+
+- Backup all databases:
+  mysqldump -u username -p --all-databases > all_databases_backup.sql
+
+- Restore a database:
+  mysql -u username -p database_name < backup.sql
+
+- Restore all databases:
+  mysql -u username -p < all_databases_backup.sql
+
+9. Stored Procedures and Functions
+- Create a stored procedure:
+  DELIMITER //
+  CREATE PROCEDURE procedure_name ()
+  BEGIN
+    -- SQL statements here
+  END //
+  DELIMITER ;
+
+- Call a stored procedure:
+  CALL procedure_name();
+
+- Create a function:
+  DELIMITER //
+  CREATE FUNCTION function_name(param1 DATATYPE) RETURNS RETURN_TYPE
+  BEGIN
+    -- Function logic
+  END //
+  DELIMITER ;
+
+- Drop a stored procedure:
+  DROP PROCEDURE procedure_name;
+
+10. Triggers
+- Create a trigger:
+  CREATE TRIGGER trigger_name BEFORE INSERT ON table_name
+  FOR EACH ROW BEGIN
+    -- SQL statements here
+  END;
+
+- Show triggers:
+  SHOW TRIGGERS;
+
+- Drop a trigger:
+  DROP TRIGGER trigger_name;
+
+11. Transactions
+- Start a transaction:
+  START TRANSACTION;
+
+- Commit changes:
+  COMMIT;
+
+- Rollback changes:
+  ROLLBACK;
+
+- Set autocommit mode off:
+  SET autocommit = 0;
+
+12. User Privileges and Security
+- Show user privileges:
+  SHOW GRANTS FOR 'username'@'host';
+
+- Grant a specific privilege:
+  GRANT SELECT ON database_name.* TO 'username'@'host';
+
+- Revoke a specific privilege:
+  REVOKE SELECT ON database_name.* FROM 'username'@'host';
+
+- Remove all privileges:
+  REVOKE ALL PRIVILEGES ON database_name.* FROM 'username'@'host';
+
+13. Performance and Monitoring
+- Show running processes:
+  SHOW PROCESSLIST;
+
+- Kill a query:
+  KILL process_id;
+
+- Show table status:
+  SHOW TABLE STATUS;
+
+- Analyze a table:
+  ANALYZE TABLE table_name;
+
+- Optimize a table:
+  OPTIMIZE TABLE table_name;
+
+---
+This guide covers essential MySQL commands from basic to advanced levels. Let me know if you need additional details!
+"""
+# Save the MySQL Table Management Commands Guide to a text file
+
+mysql_table_management_content = """\
+MySQL Table Management Commands
+
+1. Creating Tables
+------------------
+Create a new table:
+CREATE TABLE table_name (
+    column1_name datatype constraints,
+    column2_name datatype constraints,
+    ...
+);
+
+Create a table with a primary key:
+CREATE TABLE table_name (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    age INT
+);
+
+Create a table with a foreign key:
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+Create a temporary table:
+CREATE TEMPORARY TABLE temp_table_name (
+    column1_name datatype constraints,
+    column2_name datatype constraints
+);
+
+
+2. Modifying Tables
+-------------------
+Add a new column:
+ALTER TABLE table_name ADD COLUMN column_name datatype constraints;
+
+Modify an existing column:
+ALTER TABLE table_name MODIFY COLUMN column_name new_datatype constraints;
+
+Rename a column:
+ALTER TABLE table_name CHANGE old_column_name new_column_name datatype constraints;
+
+Remove a column:
+ALTER TABLE table_name DROP COLUMN column_name;
+
+Rename a table:
+ALTER TABLE old_table_name RENAME TO new_table_name;
+
+
+3. Deleting Tables
+------------------
+Delete a table:
+DROP TABLE table_name;
+
+Delete multiple tables:
+DROP TABLE table1, table2;
+
+Delete a table only if it exists:
+DROP TABLE IF EXISTS table_name;
+
+
+4. Truncating Tables
+--------------------
+Remove all records from a table (faster than DELETE):
+TRUNCATE TABLE table_name;
+
+
+5. Indexing Tables
+------------------
+Create an index:
+CREATE INDEX index_name ON table_name (column1, column2);
+
+Create a unique index:
+CREATE UNIQUE INDEX index_name ON table_name (column_name);
+
+Remove an index:
+DROP INDEX index_name ON table_name;
+
+
+6. Constraints and Keys
+-----------------------
+Add a primary key:
+ALTER TABLE table_name ADD PRIMARY KEY (column_name);
+
+Add a unique constraint:
+ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (column_name);
+
+Add a foreign key:
+ALTER TABLE table_name ADD CONSTRAINT constraint_name FOREIGN KEY (column_name) REFERENCES other_table(column_name);
+
+Remove a constraint:
+ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+
+
+7. Viewing Table Structure and Data
+-----------------------------------
+Show the structure of a table:
+DESCRIBE table_name;
+
+Show table creation SQL:
+SHOW CREATE TABLE table_name;
+
+Show all tables in a database:
+SHOW TABLES;
+
+Check the size of a table:
+SELECT table_name, round(((data_length + index_length) / 1024 / 1024), 2) AS size_MB FROM information_schema.TABLES WHERE table_schema = 'database_name';
+
+
+This guide provides essential MySQL table management commands, including creating, modifying, deleting, truncating, indexing, and managing constraints.
+"""
+
+# Save the MySQL Root Password Reset Guide to a text file
+
+mysql_reset_password_content = """\
+Reset MySQL Root Password
+
+1. Resetting Root Password on Linux (Ubuntu/Debian)
+---------------------------------------------------
+Step 1: Stop the MySQL Service
+sudo systemctl stop mysql
+or for older versions:
+sudo service mysql stop
+
+Step 2: Start MySQL in Safe Mode (Skip Authentication)
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+or:
+sudo mysqld --skip-grant-tables --skip-networking &
+
+Step 3: Log in Without a Password
+mysql -u root
+
+Step 4: Reset the Root Password
+For MySQL 5.7+ or MariaDB:
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewStrongPassword';
+FLUSH PRIVILEGES;
+
+For MySQL 5.6 and below:
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('NewStrongPassword');
+FLUSH PRIVILEGES;
+
+Step 5: Restart MySQL Normally
+sudo systemctl stop mysql
+sudo systemctl start mysql
+or:
+sudo service mysql restart
+
+
+2. Resetting Root Password on CentOS/RHEL
+------------------------------------------
+Step 1: Stop MySQL Service
+sudo systemctl stop mysqld
+
+Step 2: Start MySQL Without Authentication
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+
+Step 3: Reset Root Password
+mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewStrongPassword';
+FLUSH PRIVILEGES;
+
+Step 4: Restart MySQL
+sudo systemctl restart mysqld
+
+
+3. Resetting MySQL Root Password Using --init-file
+----------------------------------------------------
+This method works for MySQL 5.7+ without stopping the service.
+
+Step 1: Create a File with the Password Update Command
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewStrongPassword';" > /tmp/mysql-init
+
+Step 2: Restart MySQL with the Init File
+sudo systemctl stop mysql
+sudo mysqld --init-file=/tmp/mysql-init --skip-networking &
+
+Step 3: Restart Normally
+sudo systemctl restart mysql
+
+
+4. Resetting Root Password on Windows
+--------------------------------------
+Step 1: Stop the MySQL Service
+net stop mysql
+
+Step 2: Start MySQL Without Authentication
+mysqld --skip-grant-tables
+
+Step 3: Log in and Reset Password
+mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'NewStrongPassword';
+FLUSH PRIVILEGES;
+
+Step 4: Restart MySQL
+net start mysql
+
+
+This guide provides methods to reset the MySQL root password on Linux and Windows systems.
+"""
+
