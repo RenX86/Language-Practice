@@ -1,0 +1,81 @@
+# Save the Red Hat Package Manager Command Guide to a text file
+
+redhat_guide_content = """\
+Red Hat Linux Package Manager Command Guide
+
+1. Package Database Management
+- Update package lists:
+  sudo dnf check-update
+- Upgrade all packages:
+  sudo dnf upgrade
+- Upgrade a specific package:
+  sudo dnf upgrade package-name
+- Downgrade a package:
+  sudo dnf downgrade package-name
+
+2. Installing Packages
+- Install a package:
+  sudo dnf install package-name
+- Install multiple packages:
+  sudo dnf install package1 package2 package3
+- Install a package group:
+  sudo dnf groupinstall "Development Tools"
+- Install a local package file:
+  sudo dnf install /path/to/package.rpm
+- Enable a specific repository and install a package:
+  sudo dnf install --enablerepo=repo-name package-name
+
+3. Removing Packages
+- Remove a package:
+  sudo dnf remove package-name
+- Remove multiple packages:
+  sudo dnf remove package1 package2 package3
+- Remove a package group:
+  sudo dnf groupremove "Development Tools"
+- Remove a package and dependencies that are no longer needed:
+  sudo dnf autoremove
+
+4. Querying and Searching
+- Search for a package in repositories:
+  dnf search package-name
+- List installed packages:
+  dnf list installed
+- Show details of an installed package:
+  dnf info package-name
+- List all available package groups:
+  dnf grouplist
+- Find which package owns a file:
+  dnf provides /path/to/file
+
+5. Cleaning Up
+- Remove cached packages:
+  sudo dnf clean packages
+- Remove all cached data:
+  sudo dnf clean all
+- List unused dependencies:
+  sudo dnf autoremove --dry-run
+
+6. Handling RPM Packages Manually
+- Install a local RPM package:
+  sudo rpm -ivh package.rpm
+- Upgrade an RPM package:
+  sudo rpm -Uvh package.rpm
+- Remove an RPM package:
+  sudo rpm -e package-name
+- Query information about an installed RPM package:
+  rpm -qi package-name
+- List files installed by a package:
+  rpm -ql package-name
+- Check which package owns a specific file:
+  rpm -qf /path/to/file
+
+7. Troubleshooting
+- Fix broken dependencies:
+  sudo dnf check
+- Reinstall a package:
+  sudo dnf reinstall package-name
+- Force install an RPM package:
+  sudo rpm -ivh --force package.rpm
+- Force remove an RPM package (use with caution):
+  sudo rpm -e --nodeps package-name
+"""

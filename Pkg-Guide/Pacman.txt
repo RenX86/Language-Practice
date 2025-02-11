@@ -1,0 +1,91 @@
+# Create a downloadable text file with the Pacman Command Guide content
+
+pacman_guide_content = """\
+Pacman Package Manager Command Guide
+
+1. Package Database Management
+- Update package lists:
+  sudo pacman -Sy
+- Upgrade all packages:
+  sudo pacman -Syu
+- Force database refresh and upgrade:
+  sudo pacman -Syyu
+- Downgrade a package (requires cached package):
+  sudo pacman -U /var/cache/pacman/pkg/package-name-version.pkg.tar.zst
+
+2. Installing Packages
+- Install a package:
+  sudo pacman -S package-name
+- Install multiple packages:
+  sudo pacman -S package1 package2 package3
+- Install a package group:
+  sudo pacman -S gnome
+- Install a local package file:
+  sudo pacman -U /path/to/package.pkg.tar.zst
+- Install a package from a specific repository:
+  sudo pacman -S extra/package-name
+
+3. Removing Packages
+- Remove a package (keeping dependencies):
+  sudo pacman -R package-name
+- Remove a package and unused dependencies:
+  sudo pacman -Rns package-name
+- Remove a package but keep its dependencies:
+  sudo pacman -R package-name
+- Remove a package and its dependencies, but keep required ones:
+  sudo pacman -Rsc package-name
+
+4. Querying and Searching
+- Search for a package in the database:
+  pacman -Ss package-name
+- Search for an installed package:
+  pacman -Qs package-name
+- List all installed packages:
+  pacman -Q
+- Show details of an installed package:
+  pacman -Qi package-name
+- Show files installed by a package:
+  pacman -Ql package-name
+- Find which package owns a file:
+  pacman -Qo /path/to/file
+
+5. Cleaning Up
+- Remove orphaned packages:
+  sudo pacman -Rns $(pacman -Qdtq)
+- Clear package cache (except latest 3 versions):
+  sudo paccache -r
+- Clear entire package cache:
+  sudo pacman -Scc
+
+6. Handling Keys and Verification Issues
+- Manually refresh keyring:
+  sudo pacman-key --init
+  sudo pacman-key --populate archlinux
+- Manually import a specific key:
+  sudo pacman-key --recv-keys key-ID
+- Sign a key manually:
+  sudo pacman-key --lsign-key key-ID
+
+7. Working with AUR (Arch User Repository)
+Pacman does not support AUR by default. You need an AUR helper like yay or paru.
+
+- Install a package from AUR using yay:
+  yay -S package-name
+- Search for an AUR package:
+  yay -Ss package-name
+- Upgrade AUR packages:
+  yay -Syu
+- Remove an AUR package:
+  yay -Rns package-name
+
+8. Troubleshooting
+- Fix a locked database:
+  sudo rm /var/lib/pacman/db.lck
+- Check for broken dependencies:
+  pacman -Qkk
+- Manually reinstall a package:
+  sudo pacman -S package-name --overwrite '*'
+- Force install even if files exist:
+  sudo pacman -S package-name --overwrite '*'
+"""
+
