@@ -1,0 +1,45 @@
+1. cfdisk => create partitions
+2. gpt
+3. dev/sda1 = 100M = EFI
+4. dev/sda2 = 4G = swap
+5. dev/sda3 = rest G
+6. PARTITION FORMATTING
+7. mkfs.ext4 /dev/sda3
+8. mkfs.fat -F 32 /dev/sda1 
+9. mkswap /dev/sda2
+10. MOUNTING
+11. mount /dev/sda3 /mnt
+12. mkdir -p /mnt/boot/efi
+13. mount /dev/sda1 /mnt/boot/efi
+14. INSTALLATION OF PACKAGES
+15. pacstrap /mnt base linux linux-firmware sof-firmware base-devel grub efibootmgr nano networkmanager
+16. FSTAB
+17. genfstab /mnt > /mnt/etc/fstab
+18. cat /mnt/etc/fstab
+19. CHROOT
+20. arch-chroot /mnt
+21. TIMEZONE
+22. ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+23. hwclock --systohc
+24. LOCALE
+25. nano /etc/locale.gen
+26. locale-gen
+28. echo "LANG=en_US.UTF-8" > /etc/locale.conf 
+29. echo "KEYMAP=us" > /etc/vconsole.conf
+30. echo "arch" > /etc/hostname
+31. ROOT PASSWORD
+32. passwd 
+33. useradd -m -g users -G wheel -s /bin/bash Ren
+34. passwd Ren
+35. EDITOR=nano visudo
+36. uncomment %wheel ALL=(ALL) ALL
+37. systemctl enable NetworkManager
+38. BOOTLOADER
+39. grub-install /dev/sda --force
+40. grub-mkconfig -o /boot/grub/grub.cfg
+41. exit
+42. umount -a 
+43. reboot
+44. sudo pacman -S plasma sddm kde=applications
+45. sudo systemctl enable --now sddm
+46. sudo systemctl start sddm
