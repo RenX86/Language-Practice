@@ -1,0 +1,36 @@
+What is this? I am a file
+Why am I here? I am here to provide information
+Dont touch me you fool.
+
+flask-postgres-app/
+├── app/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   └── user.py
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   └── main.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── db_service.py
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── style.css
+│   │   ├── js/
+│   │   │   └── main.js
+│   │   └── images/
+│   └── templates/
+│       ├── base.html
+│       ├── index.html
+│       ├── auth/
+│       │   ├── login.html
+│       │   └── register.html
+│       └── dashboard.html
+├── migrations/
+├── venv/
+├── .env
+├── requirements.txt
+└── run.py
