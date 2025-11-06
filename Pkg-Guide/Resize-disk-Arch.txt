@@ -1,7 +1,0 @@
-Shut down the Virtual Machine completely.
-
-cfdisk
-
-sudo resize2fs /dev/sdaX
-
-reboot
